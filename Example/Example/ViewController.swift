@@ -146,6 +146,48 @@ class ViewController: UIViewController {
             return true
         }
         
+        
+//        config.themeColorDeploy.previewBgColor = .white
+//        config.themeColorDeploy.previewBtnBgColor = .white
+//        config.themeColorDeploy.previewBtnTitleColor = .white
+        
+        
+        config.themeColorDeploy.albumListBgColor = .white
+        config.themeColorDeploy.albumListTitleColor = .black
+        config.themeColorDeploy.albumListCountColor = .black
+        config.themeColorDeploy.separatorColor = .lightGray
+        config.themeColorDeploy.thumbnailBgColor = .white
+        
+//        config.themeColorDeploy.cameraCellBgColor = .white
+        config.themeColorDeploy.indexLabelBgColor = .red
+        
+        
+        config.style = .externalAlbumList
+        config.columnCount = 3
+        config.allowSelectOriginal = false
+        config.showPreviewButtonInAlbum = false
+        config.maxSelectCount = 3
+        
+        // 底部按钮
+        config.bottomToolViewBlurEffect = nil
+        config.themeColorDeploy.bottomToolViewBgColor = .white
+        config.themeColorDeploy.bottomToolViewBtnDisableTitleColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1)
+        config.themeColorDeploy.bottomToolViewBtnDisableBgColor = UIColor(red: 0.65, green: 0.65, blue: 0.65, alpha: 1)
+        config.themeColorDeploy.bottomToolViewBtnNormalBgColor = .red
+        
+        
+        // 导航栏
+        config.statusBarStyle = .default
+        config.navViewBlurEffect = nil
+        config.themeColorDeploy.navBarColor = .white
+        config.themeColorDeploy.navTitleColor = .black
+        
+        /**
+         支持开发者自定义图片，但是所自定义图片资源名称必须与被替换的bundle中的图片名称一致
+         @example: 开发者需要替换选中与未选中的图片资源，则需要传入的数组为 @[@"zl_btn_selected", @"zl_btn_unselected"]，则框架内会使用开发者项目中的图片资源，而其他图片则用框架bundle中的资源
+         */
+        config.customImageNames = ["zl_navBack"]
+        
         let ac = ZLPhotoPreviewSheet(selectedAssets: self.takeSelectedAssetsSwitch.isOn ? self.selectedAssets : [])
         ac.selectImageBlock = { [weak self] (images, assets, isOriginal) in
             self?.selectedImages = images

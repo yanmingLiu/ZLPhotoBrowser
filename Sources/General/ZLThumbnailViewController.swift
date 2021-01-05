@@ -196,7 +196,8 @@ class ZLThumbnailViewController: UIViewController {
         
         let navViewNormalH: CGFloat = 44
         
-        var insets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        var insets = UIEdgeInsets(top: 20, left: 4, bottom: 0, right: 4)
+        
         var collectionViewInsetTop: CGFloat = 20
         if #available(iOS 11.0, *) {
             insets = self.view.safeAreaInsets
@@ -226,7 +227,11 @@ class ZLThumbnailViewController: UIViewController {
         
         let totalWidth = self.view.frame.width - insets.left - insets.right
         self.collectionView.frame = CGRect(x: insets.left, y: 0, width: totalWidth, height: self.view.frame.height)
-        self.collectionView.contentInset = UIEdgeInsets(top: collectionViewInsetTop, left: 0, bottom: bottomViewH, right: 0)
+//        self.collectionView.contentInset = UIEdgeInsets(top: collectionViewInsetTop, left: 0, bottom: bottomViewH, right: 0)
+        
+        // FIXME: - lym
+        self.collectionView.contentInset = UIEdgeInsets(top: collectionViewInsetTop, left: 4, bottom: bottomViewH, right: 4)
+        
         self.collectionView.scrollIndicatorInsets = UIEdgeInsets(top: insets.top, left: 0, bottom: bottomViewH, right: 0)
         
         if !self.isLayoutOK {
@@ -312,9 +317,18 @@ class ZLThumbnailViewController: UIViewController {
         self.originalBtn.isSelected = (self.navigationController as! ZLImageNavController).isSelectedOriginal
         self.bottomView.addSubview(self.originalBtn)
         
+        /*
         self.doneBtn = createBtn(localLanguageTextValue(.done), #selector(doneBtnClick))
         self.doneBtn.layer.masksToBounds = true
         self.doneBtn.layer.cornerRadius = ZLLayout.bottomToolBtnCornerRadius
+        self.bottomView.addSubview(self.doneBtn)
+        */
+        
+        // FIXME: - lym
+        self.doneBtn = createBtn("Next", #selector(doneBtnClick))
+        self.doneBtn.layer.masksToBounds = true
+        self.doneBtn.layer.cornerRadius = ZLLayout.bottomToolBtnCornerRadius
+        self.doneBtn.titleLabel?.font = .systemFont(ofSize: 18, weight: .heavy)
         self.bottomView.addSubview(self.doneBtn)
         
         self.setupNavView()
@@ -628,13 +642,26 @@ class ZLThumbnailViewController: UIViewController {
         if nav.arrSelectedModels.count > 0 {
             self.previewBtn.isEnabled = true
             self.doneBtn.isEnabled = true
+            /*
             let doneTitle = localLanguageTextValue(.done) + "(" + String(nav.arrSelectedModels.count) + ")"
+             self.doneBtn.setTitle(doneTitle, for: .normal)
+             self.doneBtn.backgroundColor = .bottomToolViewBtnNormalBgColor
+            */
+            
+            // FIXME: - lym
+            let doneTitle = "Next \((nav.arrSelectedModels.count))/\(ZLPhotoConfiguration.default().maxSelectCount)"
+            
             self.doneBtn.setTitle(doneTitle, for: .normal)
-            self.doneBtn.backgroundColor = .bottomToolViewBtnNormalBgColor
+            let flag = nav.arrSelectedModels.count == ZLPhotoConfiguration.default().maxSelectCount
+            self.doneBtn.backgroundColor = flag ? .bottomToolViewBtnNormalBgColor : .bottomToolViewBtnDisableBgColor
+            self.doneBtn.isEnabled = flag
+
         } else {
             self.previewBtn.isEnabled = false
             self.doneBtn.isEnabled = false
-            self.doneBtn.setTitle(localLanguageTextValue(.done), for: .normal)
+            // FIXME: - lym
+            //self.doneBtn.setTitle(localLanguageTextValue(.done), for: .normal)
+            
             self.doneBtn.backgroundColor = .bottomToolViewBtnDisableBgColor
         }
         self.originalBtn.isSelected = nav.isSelectedOriginal
@@ -642,13 +669,20 @@ class ZLThumbnailViewController: UIViewController {
     }
     
     func refreshDoneBtnFrame() {
+        /*
         let selCount = (self.navigationController as? ZLImageNavController)?.arrSelectedModels.count ?? 0
         var doneTitle = localLanguageTextValue(.done)
         if selCount > 0 {
             doneTitle += "(" + String(selCount) + ")"
         }
+        
         let doneBtnW = doneTitle.boundingRect(font: ZLLayout.bottomToolTitleFont, limitSize: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30)).width + 20
         self.doneBtn.frame = CGRect(x: self.bottomView.bounds.width-doneBtnW-15, y: 7, width: doneBtnW, height: ZLLayout.bottomToolBtnH)
+        */
+ 
+        // FIXME: - lym
+        self.doneBtn.frame = CGRect(x: (self.bottomView.bounds.width - 280) / 2, y: 7, width: 280, height: 48)
+        self.doneBtn.layer.cornerRadius = 24;
     }
     
     func scrollToBottom() {
@@ -834,14 +868,22 @@ class ZLThumbnailViewController: UIViewController {
 }
 
 // MARK: CollectionView Delegate & DataSource
+
+// FIXME: - lym
+let itemSpacing: CGFloat = 4
+
 extension ZLThumbnailViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return ZLLayout.thumbCollectionViewItemSpacing
+        // return ZLLayout.thumbCollectionViewItemSpacing
+        // FIXME: - lym
+        return itemSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return ZLLayout.thumbCollectionViewLineSpacing
+//        return ZLLayout.thumbCollectionViewLineSpacing
+        // FIXME: - lym
+        return itemSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -850,8 +892,16 @@ extension ZLThumbnailViewController: UICollectionViewDataSource, UICollectionVie
         if UIApplication.shared.statusBarOrientation.isLandscape {
             columnCount += 2
         }
+        /*
         let totalW = collectionView.bounds.width - (columnCount - 1) * ZLLayout.thumbCollectionViewItemSpacing
         let singleW = totalW / columnCount
+        return CGSize(width: singleW, height: singleW)
+         */
+        
+        // FIXME: - lym
+        let w = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
+        let totalW = w - (columnCount - 1) * itemSpacing
+        let singleW = floor(totalW / columnCount)
         return CGSize(width: singleW, height: singleW)
     }
     
