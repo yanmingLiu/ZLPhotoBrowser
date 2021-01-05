@@ -166,7 +166,6 @@ class ViewController: UIViewController {
         config.columnCount = 3
         config.allowSelectOriginal = false
         config.showPreviewButtonInAlbum = false
-        config.maxSelectCount = 3
         
         // 底部按钮
         config.bottomToolViewBlurEffect = nil
@@ -187,6 +186,7 @@ class ViewController: UIViewController {
          @example: 开发者需要替换选中与未选中的图片资源，则需要传入的数组为 @[@"zl_btn_selected", @"zl_btn_unselected"]，则框架内会使用开发者项目中的图片资源，而其他图片则用框架bundle中的资源
          */
         config.customImageNames = ["zl_navBack"]
+        
         
         let ac = ZLPhotoPreviewSheet(selectedAssets: self.takeSelectedAssetsSwitch.isOn ? self.selectedAssets : [])
         ac.selectImageBlock = { [weak self] (images, assets, isOriginal) in
