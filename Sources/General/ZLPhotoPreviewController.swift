@@ -216,7 +216,12 @@ class ZLPhotoPreviewController: UIViewController {
         let config = ZLPhotoConfiguration.default()
         // nav view
         self.navView = UIView()
-        self.navView.backgroundColor = .navBarColor
+        
+//        self.navView.backgroundColor = .navBarColor
+        
+        // FIXME: - lym
+        self.navView.backgroundColor = zlRGB(35, 35, 35).withAlphaComponent(0.3)
+        
         self.view.addSubview(self.navView)
         
         if let effect = config.navViewBlurEffect {
@@ -266,7 +271,11 @@ class ZLPhotoPreviewController: UIViewController {
         
         // bottom view
         self.bottomView = UIView()
-        self.bottomView.backgroundColor = .bottomToolViewBgColor
+//        self.bottomView.backgroundColor = .bottomToolViewBgColor
+        
+        // FIXME: - lym
+        self.bottomView.backgroundColor = zlRGB(35, 35, 35).withAlphaComponent(0.3)
+        
         self.view.addSubview(self.bottomView)
         
         if let effect = config.bottomToolViewBlurEffect {
@@ -308,7 +317,12 @@ class ZLPhotoPreviewController: UIViewController {
         self.originalBtn.isSelected = (self.navigationController as! ZLImageNavController).isSelectedOriginal
         self.bottomView.addSubview(self.originalBtn)
         
-        self.doneBtn = createBtn(localLanguageTextValue(.done), #selector(doneBtnClick))
+//        self.doneBtn = createBtn(localLanguageTextValue(.done), #selector(doneBtnClick))
+        
+        // FIXME: - lym
+        self.doneBtn = createBtn("Next", #selector(doneBtnClick))
+        self.doneBtn.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        
         self.doneBtn.backgroundColor = .bottomToolViewBtnNormalBgColor
         self.doneBtn.layer.masksToBounds = true
         self.doneBtn.layer.cornerRadius = ZLLayout.bottomToolBtnCornerRadius
@@ -386,7 +400,11 @@ class ZLPhotoPreviewController: UIViewController {
             return
         }
         let selCount = nav.arrSelectedModels.count
-        var doneTitle = localLanguageTextValue(.done)
+//        var doneTitle = localLanguageTextValue(.done)
+        
+        // FIXME: - lym
+        var doneTitle = "Next"
+        
         if selCount > 0 {
             doneTitle += "(" + String(selCount) + ")"
         }
