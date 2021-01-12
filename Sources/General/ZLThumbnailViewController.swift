@@ -652,9 +652,7 @@ class ZLThumbnailViewController: UIViewController {
             let doneTitle = "Next \((nav.arrSelectedModels.count))/\(ZLPhotoConfiguration.default().maxSelectCount)"
             
             self.doneBtn.setTitle(doneTitle, for: .normal)
-            let flag = nav.arrSelectedModels.count == ZLPhotoConfiguration.default().maxSelectCount
-            self.doneBtn.backgroundColor = flag ? .bottomToolViewBtnNormalBgColor : .bottomToolViewBtnDisableBgColor
-            self.doneBtn.isEnabled = flag
+            self.doneBtn.backgroundColor = .bottomToolViewBtnNormalBgColor
 
         } else {
             self.previewBtn.isEnabled = false
@@ -662,7 +660,11 @@ class ZLThumbnailViewController: UIViewController {
             // FIXME: - lym
             //self.doneBtn.setTitle(localLanguageTextValue(.done), for: .normal)
             
+            let doneTitle = "Next \((nav.arrSelectedModels.count))/\(ZLPhotoConfiguration.default().maxSelectCount)"
+            
+            self.doneBtn.setTitle(doneTitle, for: .normal)
             self.doneBtn.backgroundColor = .bottomToolViewBtnDisableBgColor
+            
         }
         self.originalBtn.isSelected = nav.isSelectedOriginal
         self.refreshDoneBtnFrame()
