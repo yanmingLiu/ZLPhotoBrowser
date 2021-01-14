@@ -683,8 +683,12 @@ class ZLThumbnailViewController: UIViewController {
         */
  
         // FIXME: - lym
-        self.doneBtn.frame = CGRect(x: (self.bottomView.bounds.width - 280) / 2, y: 7, width: 280, height: 48)
-        self.doneBtn.layer.cornerRadius = 24;
+        if ZLPhotoConfiguration.default().maxSelectCount > 1 {
+            self.doneBtn.frame = CGRect(x: (self.bottomView.bounds.width - 280) / 2, y: 7, width: 280, height: 48)
+            self.doneBtn.layer.cornerRadius = 24;
+        } else {
+            self.doneBtn.frame = .zero
+        }
     }
     
     func scrollToBottom() {

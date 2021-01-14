@@ -230,7 +230,11 @@ class ZLPhotoPreviewController: UIViewController {
         }
         
         self.backBtn = UIButton(type: .custom)
-        self.backBtn.setImage(getImage("zl_navBack"), for: .normal)
+//        self.backBtn.setImage(getImage("zl_navBack"), for: .normal)
+        
+        // FIXME: -lym
+        self.backBtn.setImage(UIImage(named: "zl_navBack", in: Bundle.zlPhotoBrowserBundle, compatibleWith: nil), for: .normal)
+        
         self.backBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         self.backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         self.navView.addSubview(self.backBtn)

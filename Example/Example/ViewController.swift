@@ -181,11 +181,17 @@ class ViewController: UIViewController {
         config.themeColorDeploy.navBarColor = .white
         config.themeColorDeploy.navTitleColor = .black
         
+        // 微信样式
+        // config.style = .embedAlbumList
+        
+        // 排序方式
+        config.sortAscending = false
+        
         /**
          支持开发者自定义图片，但是所自定义图片资源名称必须与被替换的bundle中的图片名称一致
          @example: 开发者需要替换选中与未选中的图片资源，则需要传入的数组为 @[@"zl_btn_selected", @"zl_btn_unselected"]，则框架内会使用开发者项目中的图片资源，而其他图片则用框架bundle中的资源
          */
-        config.customImageNames = ["zl_navBack"]
+//        config.customImageNames = ["zl_navBack"]
         
         
         let ac = ZLPhotoPreviewSheet(selectedAssets: self.takeSelectedAssetsSwitch.isOn ? self.selectedAssets : [])
