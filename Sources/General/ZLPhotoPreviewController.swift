@@ -205,7 +205,8 @@ class ZLPhotoPreviewController: UIViewController {
         if selCount > 0 {
             doneTitle += "(" + String(selCount) + ")"
         }
-        let doneBtnW = doneTitle.boundingRect(font: ZLLayout.bottomToolTitleFont, limitSize: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30)).width + 20
+        let doneBtnW: CGFloat = 84//doneTitle.boundingRect(font: ZLLayout.bottomToolTitleFont, limitSize: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 30)).width + 20
+        // FIXME:- lym
         self.doneBtn.frame = CGRect(x: self.bottomView.bounds.width-doneBtnW-15, y: btnY, width: doneBtnW, height: btnH)
     }
     
@@ -219,7 +220,7 @@ class ZLPhotoPreviewController: UIViewController {
         
 //        self.navView.backgroundColor = .navBarColor
         
-        // FIXME: - lym
+        // FIXME:- lym
         self.navView.backgroundColor = zlRGB(35, 35, 35).withAlphaComponent(0.3)
         
         self.view.addSubview(self.navView)
@@ -232,7 +233,7 @@ class ZLPhotoPreviewController: UIViewController {
         self.backBtn = UIButton(type: .custom)
 //        self.backBtn.setImage(getImage("zl_navBack"), for: .normal)
         
-        // FIXME: -lym
+        // FIXME:- lym
         self.backBtn.setImage(UIImage(named: "zl_navBack", in: Bundle.zlPhotoBrowserBundle, compatibleWith: nil), for: .normal)
         
         self.backBtn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
@@ -407,12 +408,16 @@ class ZLPhotoPreviewController: UIViewController {
 //        var doneTitle = localLanguageTextValue(.done)
         
         // FIXME: - lym
-        var doneTitle = "Next"
         
-        if selCount > 0 {
-            doneTitle += "(" + String(selCount) + ")"
+        if config.maxSelectCount > 1 {
+            let doneTitle = "Next \((nav.arrSelectedModels.count))/\(ZLPhotoConfiguration.default().maxSelectCount)"
+            if selCount > 0 {
+                self.doneBtn.backgroundColor = .bottomToolViewBtnNormalBgColor
+            } else {
+                self.doneBtn.backgroundColor = .bottomToolViewBtnDisableBgColor
+            }
+            self.doneBtn.setTitle(doneTitle, for: .normal)
         }
-        self.doneBtn.setTitle(doneTitle, for: .normal)
         
         self.selPhotoPreview?.isHidden = selCount == 0
         self.refreshBottomViewFrame()
@@ -839,11 +844,16 @@ class ZLPhotoPreviewSelectedView: UIView, UICollectionViewDataSource, UICollecti
     
     func addSelModel(model: ZLPhotoModel) {
         self.arrSelectedModels.append(model)
-        let ip = IndexPath(row: self.arrSelectedModels.count-1, section: 0)
-        self.collectionView.performBatchUpdates({
-            self.collectionView.insertItems(at: [ip])
-        }) { (_) in
-            self.collectionView.scrollToItem(at: ip, at: .centeredHorizontally, animated: true)
+        
+        // FIXME: - lym
+        
+        if self.arrSelectedModels.count > 0 {
+            let ip = IndexPath(row: self.arrSelectedModels.count-1, section: 0)
+            self.collectionView.performBatchUpdates({
+                self.collectionView.insertItems(at: [ip])
+            }) { (_) in
+                self.collectionView.scrollToItem(at: ip, at: .centeredHorizontally, animated: true)
+            }
         }
     }
     
