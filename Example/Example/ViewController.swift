@@ -114,6 +114,13 @@ class ViewController: UIViewController {
         }
         
         self.collectionView.register(ImageCell.classForCoder(), forCellWithReuseIdentifier: "ImageCell")
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(listener), name: NSNotification.Name(rawValue: ZLMaxImageSelectedNotification), object: nil)
+    }
+    
+    @objc func listener() {
+        debugPrint("收到了🤢最大选择数量的通知")
     }
     
     @objc func configureClick() {

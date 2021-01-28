@@ -25,3 +25,7 @@
 //  THE SOFTWARE.
 
 let version = "4.1.2"
+
+
+// FIXME: - 达到最大数选择数量通知
+ public let ZLMaxImageSelectedNotification: String = "ZLMaxImageSelectedNotification"

@@ -475,7 +475,12 @@ class ZLPhotoPreviewController: UIViewController {
             self.selPhotoPreview?.removeSelModel(model: currentModel)
         } else {
             self.selectBtn.layer.add(getSpringAnimation(), forKey: nil)
-            if !canAddModel(currentModel, currentSelectCount: nav.arrSelectedModels.count, sender: self) {
+//            if !canAddModel(currentModel, currentSelectCount: nav.arrSelectedModels.count, sender: self) {
+//                return
+//            }
+            // FIXME: - lym
+            if !canAddModel(currentModel, currentSelectCount: nav.arrSelectedModels.count, sender: self, showAlert: false) {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: ZLMaxImageSelectedNotification), object: nil)
                 return
             }
             currentModel.isSelected = true

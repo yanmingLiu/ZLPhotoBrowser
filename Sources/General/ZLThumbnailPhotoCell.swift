@@ -156,6 +156,8 @@ class ZLThumbnailPhotoCell: UICollectionViewCell {
     
     @objc func btnSelectClick() {
         if !self.enableSelect, ZLPhotoConfiguration.default().showInvalidMask {
+            // FIXME: - lym
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: ZLMaxImageSelectedNotification), object: nil)
             return
         }
         
