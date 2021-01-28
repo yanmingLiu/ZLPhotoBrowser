@@ -32,7 +32,8 @@ struct ZLLayout {
     
     static let navTitleFont = getFont(17)
     
-    static let bottomToolViewH: CGFloat = 55
+    // FIXME: - lym
+    static let bottomToolViewH: CGFloat = 62//55
     
     static let bottomToolBtnH: CGFloat = 34
     
