@@ -857,7 +857,9 @@ class ZLPhotoPreviewSelectedView: UIView, UICollectionViewDataSource, UICollecti
             self.collectionView.performBatchUpdates({
                 self.collectionView.insertItems(at: [ip])
             }) { (_) in
-                self.collectionView.scrollToItem(at: ip, at: .centeredHorizontally, animated: true)
+                if ip.row < self.arrSelectedModels.count {
+                    self.collectionView.scrollToItem(at: ip, at: .centeredHorizontally, animated: true)
+                }
             }
         }
     }
