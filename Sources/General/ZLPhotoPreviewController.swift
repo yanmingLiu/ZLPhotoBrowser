@@ -322,12 +322,8 @@ class ZLPhotoPreviewController: UIViewController {
         self.originalBtn.isSelected = (self.navigationController as! ZLImageNavController).isSelectedOriginal
         self.bottomView.addSubview(self.originalBtn)
         
-//        self.doneBtn = createBtn(localLanguageTextValue(.done), #selector(doneBtnClick))
-        
-        // FIXME: - lym
-        self.doneBtn = createBtn("Next", #selector(doneBtnClick))
+        self.doneBtn = createBtn(localLanguageTextValue(.done), #selector(doneBtnClick))
         self.doneBtn.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        
         self.doneBtn.backgroundColor = .bottomToolViewBtnNormalBgColor
         self.doneBtn.layer.masksToBounds = true
         self.doneBtn.layer.cornerRadius = ZLLayout.bottomToolBtnCornerRadius
@@ -405,19 +401,12 @@ class ZLPhotoPreviewController: UIViewController {
             return
         }
         let selCount = nav.arrSelectedModels.count
-//        var doneTitle = localLanguageTextValue(.done)
-        
-        // FIXME: - lym
-        
-        if config.maxSelectCount > 1 {
-            let doneTitle = "Next \((nav.arrSelectedModels.count))/\(ZLPhotoConfiguration.default().maxSelectCount)"
-            if selCount > 0 {
-                self.doneBtn.backgroundColor = .bottomToolViewBtnNormalBgColor
-            } else {
-                self.doneBtn.backgroundColor = .bottomToolViewBtnDisableBgColor
-            }
-            self.doneBtn.setTitle(doneTitle, for: .normal)
+        var doneTitle = localLanguageTextValue(.done)
+        if selCount > 0 {
+            // FIXME:- lym
+            doneTitle += " \((nav.arrSelectedModels.count))/\(ZLPhotoConfiguration.default().maxSelectCount)"
         }
+        self.doneBtn.setTitle(doneTitle, for: .normal)
         
         self.selPhotoPreview?.isHidden = selCount == 0
         self.refreshBottomViewFrame()
