@@ -105,6 +105,12 @@ public class ZLPhotoManager: NSObject {
             if m.type == .video, !allowSelectVideo {
                 return
             }
+            
+            // FIXME: - lym
+            if m.type == .gif, !ZLPhotoConfiguration.default().allowSelectGif {
+                return
+            }
+            
             if count == limitCount {
                 stop.pointee = true
             }
